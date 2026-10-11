@@ -14,6 +14,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Middleware para registrar peticiones en consola
+app.use((req, res, next) => {
+  console.log(`[${new Date().toLocaleTimeString()}] 📥 ${req.method} ${req.url} - Desde IP: ${req.ip}`);
+  next();
+});
+
 // Rutas de la API
 app.use('/', authRoutes);
 app.use('/posts', postRoutes);
